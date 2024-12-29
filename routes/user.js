@@ -7,7 +7,6 @@ const { Router } = require("express");
 const bcrypt = require("bcrypt");
 const { userModel } = require("../db");
 const jwt = require('jsonwebtoken');
-const dotenv = require("dotenv").config();
 const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD;
 
 const userRouter = Router(); //Router() is a function not a class

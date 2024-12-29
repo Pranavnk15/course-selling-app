@@ -5,7 +5,6 @@ const { adminModel, courseModel } = require("../db")
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const { adminMiddleWare } = require("../middlewares/admin");
-const dotenv = require("dotenv").config();
 const JWT_ADMIN_PASSWORD = process.env.JWT_ADMIN_PASSWORD;
 
 adminRouter.post("/signin", async (req, res) => {
@@ -81,15 +80,16 @@ adminRouter.post("/course", adminMiddleWare, async (req, res) => {
 
 
 adminRouter.put("/course", adminMiddleWare,async (req, res) => {
-    const adminId = req.adminId;
-    const { title, description, price, imageUrl } = req.body;
+   
+    const { title, description, price, imageUrl, courseId } = req.body;
 
-    await courseModel.findByIdAndUpdate(
-        adminId, {
-        title,
-        description,
-        imageUrl,
-        price
+    await courseModel.updateOne({
+        _id: courseId,
+    }, {
+        title: title,
+        description: description,
+        imageUrl: imageUrl,
+        price: price
     })
 
     res.json({

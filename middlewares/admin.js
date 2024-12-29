@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv").config();
 const JWT_ADMIN_PASSWORD = process.env.JWT_ADMIN_PASSWORD;
 
 function adminMiddleWare(req, res, next) {
