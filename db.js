@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
 
-console.log("Conecting to db...");
-
-mongoose.connect(process.env.MONGO_URL);
 const ObjectId = mongoose.ObjectId;
 
 const userSchema = new mongoose.Schema({
