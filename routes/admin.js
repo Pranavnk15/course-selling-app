@@ -1,7 +1,7 @@
 const {Router} = require("express");
 const { model } = require("mongoose");
 const adminRouter = Router();
-
+const {adminModel} = require("../db")
 
 
 adminRouter.post("/signin", (req, res) => {

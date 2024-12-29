@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv").config();
 
+console.log("Conecting to db...");
+
+mongoose.connect(process.env.MONGO_URL);
 const ObjectId = mongoose.ObjectId;
 
 const userSchema = new mongoose.Schema({
@@ -20,7 +24,7 @@ const courseSchema = new mongoose.Schema({
     title: String,
     description: String,
     price: Number,
-    imageURL: String,
+    imageUrl: String,
     creatorId: ObjectId
 })
 
