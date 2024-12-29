@@ -6,6 +6,8 @@ const { courseRouter } = require("./routes/course")
 const { adminRouter } = require("./routes/admin")
 const app = express();
 
+app.use(express.json());
+
 
 
 //express routing, helps in stucturing, routes are clearly mentioned at top level file
