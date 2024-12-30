@@ -5,8 +5,9 @@
 
 const { Router } = require("express");
 const bcrypt = require("bcrypt");
-const { userModel } = require("../db");
+const { userModel, purchaseModel } = require("../db");
 const jwt = require('jsonwebtoken');
+const { userMiddleWare } = require("../middlewares/user");
 const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD;
 
 const userRouter = Router(); //Router() is a function not a class
@@ -62,9 +63,17 @@ userRouter.post("/signin", async (req, res) => {
     }
 })
 
-userRouter.get("/purchases", (req, res) => {
-
+userRouter.get("/purchases", userMiddleWare, async (req, res) => {
+    const userId = req.userId;
+    const purchases = await purchaseModel.find({
+        userId
+    })
+    res.json({
+        purchases
+    })
 })
+
+
 
 module.exports = {
     userRouter: userRouter

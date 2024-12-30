@@ -69,7 +69,7 @@ adminRouter.post("/course", adminMiddleWare, async (req, res) => {
         description,
         price,
         imageUrl,
-        createId: adminId
+        creatorId: adminId
     })
     res.json({
         message: "Course creates",
@@ -79,12 +79,13 @@ adminRouter.post("/course", adminMiddleWare, async (req, res) => {
 })
 
 
-adminRouter.put("/course", adminMiddleWare,async (req, res) => {
-   
+adminRouter.put("/course", adminMiddleWare, async (req, res) => {
+    const adminId = req.body.adminId;
     const { title, description, price, imageUrl, courseId } = req.body;
 
     await courseModel.updateOne({
         _id: courseId,
+        creatorId: adminId
     }, {
         title: title,
         description: description,
@@ -97,13 +98,16 @@ adminRouter.put("/course", adminMiddleWare,async (req, res) => {
     })
 })
 
-adminRouter.get("/bulk", (req, res) => {
-
+adminRouter.get("/bulk", adminMiddleWare, async(req, res) => {
+    const adminId = req.adminId;
+    const course = await courseModel.find({
+        creatorId: adminId
+    })
+    res.json({
+        courses: course
+    })
 })
 
-adminRouter.delete("/delete-course", (req, res) => {
-
-})
 
 module.exports = {
     adminRouter: adminRouter
